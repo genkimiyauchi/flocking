@@ -34,7 +34,6 @@ def get_attraction_vector(neighbors, my_hop_count):
 
 def repulsion(distance):
     f_norm_dist_exp = pow(TARGET_DISTANCE / distance, EXPONENT)
-    # print(f'TARGET_DISTANCE: {TARGET_DISTANCE}, distance: {distance}, f_norm_dist_exp: {f_norm_dist_exp}')
     return -GAIN / distance * (f_norm_dist_exp * f_norm_dist_exp)
 
 
@@ -46,19 +45,14 @@ def get_repulsion_vector(neighbors):
         position = robot[0]
         distance = abs(position)
         angle = math.atan2(position.y, position.x)
-        # print(f'distance: {distance}, angle: {angle}')
 
         # Calculate repulsion force
         lj_force = repulsion(distance)
-
-        # print(f'lj_force: {lj_force}')
 
         # Calculate the repulsion vector
         x = math.cos(angle) * lj_force
         y = math.sin(angle) * lj_force
         repultion_vector = Vector2D(x, y)
-
-        # print(f'x: {x}, y: {y}, repultion_vector: {repultion_vector}')
 
         result_vector += repultion_vector       
 
@@ -99,3 +93,9 @@ if __name__ == "__main__":
 
     vector = flock(neighbors, my_hop_count)
     print(vector)
+
+    # Sample output
+    # (-2.33333, -0.833333)
+    # 
+    # The output vector represents the direction to move towards in the time step
+    # The magnitude of the vector can be tuned by the parameters defined at the top of the file
